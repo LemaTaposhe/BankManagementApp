@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { RegisterRequest } from './register-request.model';
+//import { RegisterRequest } from '../register-request.model';
 
 @Component({
   selector: 'app-register',
@@ -8,22 +10,20 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  fullName: string = '';
-  email: string = '';
-  password: string = '';
-  role: string = 'Customer'; // Default role
+  registerRequest: RegisterRequest = new RegisterRequest();
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
 
   register(): void {
-    this.authService.register(this.fullName, this.email, this.password, this.role).subscribe(
-      (response) => {
-        this.router.navigate(['/login']); // Redirect to login after successful registration
+    this.authService.register(this.registerRequest).subscribe(
+      () => {
+        this.router.navigate(['/login']);
       },
       (error) => {
-        this.errorMessage = 'Registration failed. Please try again.';
+        this.errorMessage = error.error.message || 'Registration failed.';
       }
     );
   }
 }
+
