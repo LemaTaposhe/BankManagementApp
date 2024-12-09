@@ -134,9 +134,4 @@ export class AccountComponent implements OnInit {
   }
 }
 
-  // Select account for editing
-  selectAccount(account: Account): void {
-    this.selectedAccount = account;
-    this.accountForm.patchValue(account); // Populate form with account data
-  }
-}
+
