@@ -36,10 +36,7 @@ export class TransactionService {
   getTransactions(): Observable<Transaction[]> {
     return this.http.get<Transaction[]>(this.apiUrl);
   }
-  // Get all transactions
-  //getAllTransactions(): Observable<Transaction[]> {
-  //  return this.http.get<Transaction[]>(this.apiUrl);
-  //}
+ 
   // Get all accounts
   private getHttpOptions() {
     const token = localStorage.getItem('token'); // Get token from localStorage
@@ -57,19 +54,21 @@ export class TransactionService {
         catchError(this.handleError)
       );
   }
-  // Get transactions by account ID
-  //getTransactionsByAccountId(accountId: number): Observable<Transaction[]> {
-  //  return this.http.get<Transaction[]>(`${this.apiUrl}/account/${accountId}`);
-  //}
+  //------------------------------For  report----------------------
+  getMonthlyStatement(accountId: number, month: number, year: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiUrl}/monthlyStatement/${accountId}/${month}/${year}`);
+  }
+
+  getDetailedReport(accountId: number): Observable<Transaction[]> {
+    return this.http.get<Transaction[]>(`${this.apiUrl}/detailedReport/${accountId}`);
+  }
+
+  exportTransactionsToExcel(accountId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/exportExcel/${accountId}`, { responseType: 'blob' });
+  }
+  //-------------------------------------------------------------------------------------
   // Get a specific account by ID
-  //getTransactionsByAccountId(accountId: number): Observable<Transaction[]> {
-  //  return this.http.get<Transaction[]>(`${this.apiUrl}/account/${accountId}`, this.getHttpOptions())
-  //    .pipe(
-  //    /*catchError(this.handleError)*/
-  //      map(response => response.$values),  // Extract the array from the response
-  //      catchError(this.handleError)
-  //    );
-  //}
+ 
   getTransactionsByAccountId(accountId: number): Observable<Transaction[]> {
     return this.http.get<{ $values: Transaction[] }>(`${this.apiUrl}/account/${accountId}`, this.getHttpOptions())
       .pipe(
