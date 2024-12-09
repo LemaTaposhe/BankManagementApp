@@ -1,0 +1,194 @@
+/*.page-container {
+  max-width: 80%;
+  margin: 20px auto;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.gradient-header {
+  background: linear-gradient(to right, #4caf50, #00897b);
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.table-hover tbody tr:hover {
+  background: #f1f1f1;
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.form-control:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-submit {
+  background-color: #4caf50;
+  border: none;
+}
+
+.btn-reset {
+  background-color: #2196f3;
+  border: none;
+}
+
+.btn-edit {
+  background-color: #00bcd4;
+  border: none;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  border: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+*/
+/* Container */
+.page-container {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 1000px;
+}
+
+/* Card Styling */
+.card {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.card-header {
+  background: linear-gradient(to right, #007bff, #0056b3);
+  padding: 20px;
+  text-align: left;
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+  .card-header .m-b-0 {
+    margin-bottom: 0;
+  }
+
+.card-body {
+  padding: 20px;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.form-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.btn-reset {
+  background-color: #f1f1f1;
+  border-color: #ddd;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.btn-submit:disabled {
+  background-color: #ccc;
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f9fa;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+
+.btn-edit, .btn-delete {
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.btn-edit {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+  .btn-edit:hover, .btn-delete:hover {
+    opacity: 0.9;
+  }

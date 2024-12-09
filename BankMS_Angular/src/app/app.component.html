@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="header">
+    <h1>Welcome to the Bank Management System</h1>
+    <div class="header-buttons">
+      <!-- Link to Login page -->
+      <button class="btn-login" routerLink="/login" routerLinkActive="active">Login</button>
+
+      <!-- Link to Register page -->
+      <button class="btn-register" routerLink="/register" routerLinkActive="active">Register</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="sidebar">
+      <ul>
+        <li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/user" routerLinkActive="active">User</a></li>
+        <li><a routerLink="/account" routerLinkActive="active">Account</a></li>
+        <li><a routerLink="/loan" routerLinkActive="active">Loan</a></li>
+        <li><a routerLink="/transaction" routerLinkActive="active">Transaction</a></li>
+      </ul>
+    </div>
+
+    <div class="content">
+      <!--Router Outlet for dynamic content-->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

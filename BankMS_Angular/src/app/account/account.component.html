@@ -1,0 +1,81 @@
+
+<div class="account-container">
+  <h2>Account Management</h2>
+
+  <!-- Account Form Section -->
+  <div class="apply-account">
+    <form [formGroup]="accountForm" (ngSubmit)="applyForAccount()">
+      <div class="form-group">
+        <label for="user">Select User</label>
+        <select id="user" formControlName="userId" required>
+          <option *ngFor="let user of users" [value]="user.userId">
+            {{ user.fullName }}
+          </option>
+        </select>
+        <span *ngIf="accountForm.get('userId')?.invalid && accountForm.get('userId')?.touched" class="error-message">
+          Please select a user.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="accountNumber">Account Number</label>
+        <input type="text" id="accountNumber" formControlName="accountNumber" required />
+        <span *ngIf="accountForm.get('accountNumber')?.invalid && accountForm.get('accountNumber')?.touched" class="error-message">
+          Please enter a valid account number.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="accountType">Account Type</label>
+        <input type="text" id="accountType" formControlName="accountType" required />
+        <span *ngIf="accountForm.get('accountType')?.invalid && accountForm.get('accountType')?.touched" class="error-message">
+          Please enter a valid account type.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="currency">Currency</label>
+        <input type="text" id="currency" formControlName="currency" required />
+        <span *ngIf="accountForm.get('currency')?.invalid && accountForm.get('currency')?.touched" class="error-message">
+          Please select a currency.
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="balance">Balance</label>
+        <input type="number" id="balance" formControlName="balance" required />
+        <span *ngIf="accountForm.get('balance')?.invalid && accountForm.get('balance')?.touched" class="error-message">
+          Please enter a valid balance.
+        </span>
+      </div>
+
+      <button type="submit" [disabled]="accountForm.invalid">Apply for Account</button>
+    </form>
+  </div>
+
+  <!-- Account List Section -->
+  <h3>All Accounts</h3>
+  <div class="account-list">
+    <ul>
+      <li *ngFor="let account of accounts">
+        <span>{{ account.accountNumber }} - {{ account.accountType }}</span>
+        <button (click)="selectAccount(account)">View</button>
+        <button (click)="updateAccount()" [disabled]="!selectedAccount || !accountForm.valid">Update</button>
+        <button (click)="closeAccount(account.accountId)">Close</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Account Details Section -->
+  <div *ngIf="selectedAccount" class="account-details">
+    <h3>Account Details</h3>
+    <p>Account Number: {{ selectedAccount.accountNumber }}</p>
+    <p>Account Type: {{ selectedAccount.accountType }}</p>
+    <p>Balance: {{ selectedAccount.balance }} {{ selectedAccount.currency }}</p>
+    <!--<p>Status: {{ selectedAccount.isActive ? 'Active' : 'Closed' }}</p>-->
+    <!-- Close Account Button -->
+    <div>
+      <button (click)="closeAccount(selectedAccount.accountId)">Close Account</button>
+    </div>
+  </div>
+</div>

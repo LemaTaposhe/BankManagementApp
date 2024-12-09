@@ -1,0 +1,97 @@
+
+<div class="transaction-container">
+  <h2>Transaction Management</h2>
+ Transaction Form 
+<div class="transaction-form">
+  <h3>New Transaction</h3>
+  <form (ngSubmit)="submitTransaction()">
+    <div class="form-group">
+      <label for="accountId">Account ID</label>
+      <input type="number"
+             id="accountId"
+             [(ngModel)]="newTransaction.accountId"
+             name="accountId"
+             class="form-control"
+             placeholder="Enter Account ID"
+             required />
+    </div>
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input type="number"
+             id="amount"
+             [(ngModel)]="newTransaction.amount"
+             name="amount"
+             class="form-control"
+             placeholder="Enter Amount"
+             required />
+    </div>
+    <div class="form-group">
+      <label for="transactionType">Transaction Type</label>
+      <select id="transactionType"
+              [(ngModel)]="transactionType"
+              name="transactionType"
+              class="form-control"
+              required>
+        <option value="" disabled>Select Transaction Type</option>
+        <option value="Deposit">Deposit</option>
+        <option value="Withdraw">Withdraw</option>
+        <option value="Transfer">Transfer</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="transactionType === 'Transfer'">
+      <label for="externalBankDetails">External Bank Details</label>
+      <input type="text"
+             id="externalBankDetails"
+             [(ngModel)]="newTransaction.externalBankDetails"
+             name="externalBankDetails"
+             class="form-control"
+             placeholder="Enter External Bank Details" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Transaction</button>
+  </form>
+</div>
+ <!--Filter by Account ID--> 
+<div class="filter-section">
+  <h3>Filter Transactions</h3>
+  <div class="form-group">
+    <label for="filterAccountId">Account ID</label>
+    <input type="number"
+           id="filterAccountId"
+           [(ngModel)]="accountId"
+           name="filterAccountId"
+           class="form-control"
+           placeholder="Enter Account ID to Filter" />
+  </div>
+  <button class="btn btn-secondary" (click)="getTransactionsByAccountId()">Filter</button>
+  <button class="btn btn-light" (click)="accountId = null; getAllTransactions()">Clear Filter</button>
+</div>
+
+
+ <!--Transaction List--> 
+<div class="transaction-list">
+  <h3>Transaction History</h3>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Transaction ID</th>
+        <th>Account ID</th>
+        <th>Transaction Type</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>To Account ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let transaction of filteredTransactions">
+        <td>{{ transaction.transactionId }}</td>
+        <td>{{ transaction.accountId }}</td>
+        <td>{{ transaction.transactionType }}</td>
+        <td>{{ transaction.amount }}</td>
+        <td>{{ transaction.transactionDate | date:'short' }}</td>
+        <td>{{ transaction.externalBankDetails || 'N/A' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

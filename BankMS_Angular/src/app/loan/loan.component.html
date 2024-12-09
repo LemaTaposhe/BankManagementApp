@@ -1,0 +1,78 @@
+<div class="loan-container">
+  <h2>Loan Management</h2>
+
+<form [formGroup]="loanForm" (ngSubmit)="applyForLoan()">
+  <div>
+    <label for="user">Select User</label>
+    <select id="user" formControlName="userId" required>
+      <option *ngFor="let user of users" [value]="user.userId">
+        {{ user.fullName }}
+      </option>
+    </select>
+    <span *ngIf="loanForm.get('userId')?.invalid && loanForm.get('userId')?.touched" class="error-message">
+      Please select a user.
+    </span>
+  </div>
+
+  <div>
+    <label for="principalAmount">Principal Amount</label>
+    <input type="number" id="principalAmount" formControlName="principalAmount" required />
+    <span *ngIf="loanForm.get('principalAmount')?.invalid && loanForm.get('principalAmount')?.touched" class="error-message">
+      Please enter a valid principal amount.
+    </span>
+  </div>
+
+  <div>
+    <label for="interestRate">Interest Rate</label>
+    <input type="number" id="interestRate" formControlName="interestRate" required />
+    <span *ngIf="loanForm.get('interestRate')?.invalid && loanForm.get('interestRate')?.touched" class="error-message">
+      <!--Please enter a valid interest rate.-->
+    </span>
+  </div>
+
+  <div>
+    <label for="termMonths">Term (Months)</label>
+    <input type="number" id="termMonths" formControlName="termMonths" required />
+    <span *ngIf="loanForm.get('termMonths')?.invalid && loanForm.get('termMonths')?.touched" class="error-message">
+      <!--Please enter the loan term in months.-->
+    </span>
+  </div>
+
+  <button type="submit" [disabled]="loanForm.invalid">Apply for Loan</button>
+</form>
+  <!-- Loan List -->
+  <h3>All Loans</h3>
+  <ul>
+    <li *ngFor="let loan of loans">
+      <span>{{ loan.loanId }} - {{ loan.principalAmount }} USD</span>
+      <button (click)="selectLoan(loan)">View</button>
+      <button (click)="approveLoan(loan.loanId, true)" [disabled]="loan.isApproved">Approve</button>
+      <button (click)="approveLoan(loan.loanId, false)" [disabled]="loan.isApproved">Reject</button>
+    </li>
+  </ul>
+
+  <!-- Loan Details -->
+  <div *ngIf="selectedLoan">
+    <h3>Loan Details</h3>
+    <p>Loan ID: {{ selectedLoan.loanId }}</p>
+    <p>Principal Amount: {{ selectedLoan.principalAmount }} USD</p>
+    <p>Remaining Balance: {{ selectedLoan.remainingBalance }} USD</p>
+    <p>Interest Rate: {{ selectedLoan.interestRate }}%</p>
+    <p>Status: {{ selectedLoan.isApproved ? 'Approved' : 'Pending' }}</p>
+
+    <!-- Repayment -->
+    <div>
+      <label for="repaymentAmount">Repayment Amount</label>
+      <input type="number" id="repaymentAmount" [(ngModel)]="repaymentAmount" name="repaymentAmount" />
+      <button (click)="repayLoan(selectedLoan.loanId)">Repay</button>
+    </div>
+
+    <!-- Penalty Calculation -->
+    <div>
+      <label for="overdueDays">Overdue Days</label>
+      <input type="number" id="overdueDays" [(ngModel)]="overdueDays" name="overdueDays" />
+      <button (click)="calculatePenalty(selectedLoan.loanId)">Calculate Penalty</button>
+      <p *ngIf="penaltyAmount">Penalty: {{ penaltyAmount }} USD</p>
+    </div>
+  </div>
+</div>
