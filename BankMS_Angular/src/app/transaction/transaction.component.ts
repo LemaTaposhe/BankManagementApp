@@ -1,4 +1,5 @@
 
+
 import { Component, OnInit } from '@angular/core';
 import { Transaction } from './transaction.model';
 import { TransactionService } from './transaction.service';
@@ -15,7 +16,9 @@ export class TransactionComponent implements OnInit {
   filteredTransactions: Transaction[] = [];
   newTransaction: Transaction = new Transaction();
   transactionType: string = '';
-  accountId: number | null = null; // For filtering by account ID
+  accountId: number | null = null;
+  month: number | null = null;
+  year: number | null = null;
 
   constructor(
     private transactionService: TransactionService,
@@ -98,4 +101,50 @@ export class TransactionComponent implements OnInit {
     this.newTransaction = new Transaction();
     this
   }
+  //----------------------For report------------------
+  getMonthlyStatement(): void {
+    if (this.accountId && this.month && this.year) {
+      this.transactionService.getMonthlyStatement(this.accountId, this.month, this.year).subscribe(
+        (transactions) => {
+          this.transactions = transactions;
+        },
+        (error) => {
+          console.error('Error fetching monthly statement:', error);
+        }
+      );
+    }
+  }
+
+  getDetailedReport(): void {
+    if (this.accountId) {
+      this.transactionService.getDetailedReport(this.accountId).subscribe(
+        (transactions) => {
+          this.transactions = transactions;
+        },
+        (error) => {
+          console.error('Error fetching detailed report:', error);
+        }
+      );
+    }
+  }
+
+  exportToExcel(): void {
+    if (this.accountId) {
+      this.transactionService.exportTransactionsToExcel(this.accountId).subscribe(
+        (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'Transactions.xlsx';
+          link.click();
+        },
+        (error) => {
+          console.error('Error exporting transactions:', error);
+        }
+      );
+    }
+
+    //--------------------------------------------------------
+  }
 }
+
