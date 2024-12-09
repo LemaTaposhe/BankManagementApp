@@ -1,40 +1,29 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RegisterRequest } from './register/register-request.model';
+import { LoginRequest } from './login/login-request.model';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiBaseUrl}/auth`;
+  private apiUrl = `${environment.apiBaseUrl}/Authentication`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  login(email: string, password: string): Observable<any> {
-    const body = { email, password };
-    return this.http.post<any>(`${this.apiUrl}/login`, body);
+
+  register(registerRequest: RegisterRequest): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/Authentication/register`, registerRequest);
   }
-
-  register(fullName: string, email: string, password: string, role: string): Observable<any> {
-    const body = { fullName, email, password, role };
-    return this.http.post<any>(`${this.apiUrl}/register`, body);
+  login(loginRequest: LoginRequest): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/Authentication/login`, loginRequest);
   }
-
-  saveToken(token: string): void {
-    localStorage.setItem('jwtToken', token);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem('jwtToken');
-  }
-
-  isAuthenticated(): boolean {
-    return this.getToken() !== null;
-  }
-
-  logout(): void {
-    localStorage.removeItem('jwtToken');
+  logout() {
+    localStorage.removeItem('authToken'); // Remove the stored token or session data
+    this.router.navigate(['/login']); // Navigate to the login page
   }
 }
