@@ -1,5 +1,6 @@
 
 
+
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from './account.service';
 import { Account } from './account.model';
@@ -125,6 +126,13 @@ export class AccountComponent implements OnInit {
       });
     }
   }
+
+  // Select account for editing
+  selectAccount(account: Account): void {
+    this.selectedAccount = account;
+    this.accountForm.patchValue(account); // Populate form with account data
+  }
+}
 
   // Select account for editing
   selectAccount(account: Account): void {
