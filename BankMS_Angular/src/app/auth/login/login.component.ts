@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginRequest } from './login-request.model'; // Make sure this is properly defined
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { LoginRequest } from './login-request.model';
+
 
 @Component({
   selector: 'app-login',
@@ -15,17 +16,15 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login(): void {
-    // Pass email and password separately
-    this.authService.login(this.loginRequest.email, this.loginRequest.password).subscribe(
+    this.authService.login(this.loginRequest).subscribe(
       (response) => {
-        // Store the JWT token in localStorage
-        this.authService.saveToken(response.token);
-        // Redirect to the home page or dashboard
-        this.router.navigate(['/dashboard']);
+        localStorage.setItem('authToken', response.token);
+        this.router.navigate(['/home']);
       },
       (error) => {
-        this.errorMessage = 'Invalid email or password';
+        this.errorMessage = error.error.message || 'Login failed.';
       }
     );
   }
 }
+
