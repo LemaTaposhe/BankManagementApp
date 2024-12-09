@@ -3,8 +3,11 @@
     <h1>Welcome to the Bank Management System</h1>
     <div class="header-buttons">
       <!-- Link to Login page -->
-      <button class="btn-login" routerLink="/login" routerLinkActive="active">Login</button>
-
+      <!--<button class="btn-login" routerLink="/login" routerLinkActive="active">Login</button>-->
+      <!-- Other buttons -->
+      <!--<button class="btn-logout" (click)="logout()">Logout</button>-->
+      <button *ngIf="isLoggedIn" class="btn-logout" (click)="logout()">Logout</button>
+      <button *ngIf="!isLoggedIn" class="btn-login" routerLink="/login">Login</button>
       <!-- Link to Register page -->
       <button class="btn-register" routerLink="/register" routerLinkActive="active">Register</button>
     </div>
