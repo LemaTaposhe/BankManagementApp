@@ -50,6 +50,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 
 **For Login**
- Email: Lema@gmail.com
+ Email: lema@gmail.com
 Password: lema@123
 Roll: Admin
